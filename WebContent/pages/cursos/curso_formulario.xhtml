@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel header="Cadastro de Cursos" style="width:60%;"
+		rendered="#{cursoBean.curso != null}" id="lista-curso-panel">
+		<p:panelGrid columns="2" style="width:95%;">
+			<h:outputLabel value="Nome:"/>
+			<p:inputText value="#{cursoBean.curso.nome}" />
+			<h:outputLabel value="Descrição:" />
+			<p:inputTextarea value="#{cursoBean.curso.descricao}" 
+				cols="40" rows="3" maxlength="255"/>
+			<h:outputLabel value="Duração:" />
+			<p:spinner value="#{cursoBean.curso.duracao}"
+				min="1" max="10" stepFactor="0.5" size="1" style="z-index:0;"/>
+			<h:outputLabel value="Tipo:" />
+			<p:selectOneMenu value="#{cursoBean.curso.tipo}" 
+				requiredMessage="Selecione o tipo">
+				<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+				<f:selectItems value="#{cursoBean.tipos}" var="tipo"
+					itemLabel="#{tipo.label}" itemValue="#{tipo}"/>
+			</p:selectOneMenu>
+			<h:outputLabel value="Data de Criação:"/>
+			<p:calendar value="#{cursoBean.curso.dataCriacao}"
+				pattern="dd/MM/yyyy" maxdate="#{cursoBean.dataAtual}"/>
+		</p:panelGrid>
+		<br/>
+		<p:commandButton icon="salvar-icon" value="Salvar" action="#{cursoBean.salvar}"
+		 update="@form" id="btn-salvar"/>
+		<p:commandButton icon="voltar-icon" value="Voltar" action="#{cursoBean.voltar}" 
+			update="@form" immediate="true"/>
+	</p:panel>
+	
+	<p:blockUI block="lista-curso-panel" trigger="btn-salvar"/>
+
+</html>

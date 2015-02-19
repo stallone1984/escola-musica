@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel header="Alunos Cadastrados" rendered="#{alunoBean.aluno eq null}">
+		<p:commandButton value="Novo Aluno" icon="adicionar-icon"
+			action="#{alunoBean.novoAluno}" update="aluno_form"/>
+		<br/><br/>
+		
+		<p:dataTable value="#{alunoBean.alunos}" var="aluno">
+			<p:column headerText="Nome">
+				<h:outputText value="#{aluno.nome}"/>
+			</p:column>
+			<p:column headerText="CPF">
+				<h:outputText value="#{aluno.cpf}"/>
+			</p:column>
+			<p:column headerText="email">
+				<h:outputText value="#{aluno.email}"/>
+			</p:column>
+			<p:column headerText="Data Nascimento">
+				<h:outputText value="#{aluno.dataNascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Ativo">
+				<h:outputText value="#{aluno.ativo ? 'Sim' : 'Não'}"/>
+			</p:column>
+		</p:dataTable>	
+		
+	</p:panel>
+	
+</html>
+
+
+
+
+
+
+

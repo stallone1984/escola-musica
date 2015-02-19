@@ -1,0 +1,14 @@
+<ui:composition 
+	template="/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="titulo">Teste Template</ui:define>
+	
+	<ui:define name="principal">
+		<h1>Conteudo pagina usa_template</h1>
+		<ui:include src="/inclusao_template.xhtml" />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.3" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.3
+   http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
+   
+   <url-mapping id="cursoaccordion">
+   	<pattern value="/curso/accordion/" />
+   	<view-id value="/curso_accordion.jsf"/>
+   	<action onPostback="false">#{cursoBean.iniciarBean}</action>
+   </url-mapping>
+   
+   <url-mapping id="cursomanutencao">
+   	<pattern value="/curso/manutencao/" />
+   	<view-id value="/pages/cursos/curso_wrapper.jsf"/>
+   	<action onPostback="false">#{cursoBean.iniciarBean}</action>
+   </url-mapping>
+   
+   <url-mapping id="alunomanutencao">
+   	<pattern value="/aluno/manutencao/" />
+   	<view-id value="/pages/alunos/aluno_wrapper.jsf"/>
+   	<action onPostback="false">#{alunoBean.iniciarBean}</action>
+   </url-mapping>
+</pretty-config>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Escola Música - <ui:insert name="titulo"/> </title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="#{request.contextPath}/css/tema.css" />
+</h:head>
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Curso" url="/curso/manutencao/" 
+				icon="cursos-icon"/>
+			<p:menuitem value="Alunos" url="/aluno/manutencao/"/>
+		</p:menubar>
+	</h:form>
+	<ui:insert name="principal" />
+</h:body>
+</html>
