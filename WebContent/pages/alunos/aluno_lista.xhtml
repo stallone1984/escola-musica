@@ -11,23 +11,29 @@
 			action="#{alunoBean.novoAluno}" update="aluno_form"/>
 		<br/><br/>
 		
-		<p:dataTable value="#{alunoBean.alunos}" var="aluno">
-			<p:column headerText="Nome">
+		<p:dataTable value="#{alunoBean.alunos}" var="aluno"
+			paginator="true" rows="10" rowsPerPageTemplate="5, 10, 15"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+				{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<p:column headerText="Nome" style="width:300px;">
 				<h:outputText value="#{aluno.nome}"/>
 			</p:column>
-			<p:column headerText="CPF">
+			<p:column headerText="CPF" style="width:150px;">
 				<h:outputText value="#{aluno.cpf}"/>
 			</p:column>
-			<p:column headerText="email">
+			<p:column headerText="email" style="width:250px;">
 				<h:outputText value="#{aluno.email}"/>
 			</p:column>
-			<p:column headerText="Data Nascimento">
+			<p:column headerText="Data Nascimento" style="width:100px;">
 				<h:outputText value="#{aluno.dataNascimento}">
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</h:outputText>
 			</p:column>
-			<p:column headerText="Ativo">
+			<p:column headerText="Ativo" style="width:60px;">
 				<h:outputText value="#{aluno.ativo ? 'Sim' : 'Não'}"/>
+			</p:column>
+			<p:column style="width:60px; text-align:center;">
+				<p:commandButton icon="editar-icon" action="#{alunoBean.editar(aluno)}" update=":aluno_form"/>
 			</p:column>
 		</p:dataTable>	
 		

@@ -7,21 +7,51 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:panel header="Cadastro de Alunos" rendered="#{alunoBean.aluno != null}">
-		<p:panelGrid columns="2">
-			<h:outputText value="Nome: "/>
-			<p:inputText value="#{alunoBean.aluno.nome}"/>
-			<h:outputText value="Data de Nascimento: "/>
-			<p:calendar value="#{alunoBean.aluno.dataNascimento}" 
-				pattern="dd/MM/yyyy"/>
-			<h:outputText value="Cpf: "/>
-			<p:inputMask value="#{alunoBean.aluno.cpf}" mask="999.999.999-99" />
-			<h:outputText value="Email "/>
-			<p:inputText value="#{alunoBean.aluno.email}"/>
-			<h:outputText value="Telefone: "/>
-			<p:inputMask value="#{alunoBean.aluno.telefone}" mask="(99)9?99999999" />
-			<h:outputText value="Ativo"/>
-			<p:selectBooleanCheckbox value="#{alunoBean.aluno.ativo}"/>
-		</p:panelGrid>
+		<p:panel header="Dados do Aluno">
+			<p:panelGrid columns="2">
+				<h:outputText value="Nome: "/>
+				<p:inputText value="#{alunoBean.aluno.nome}" size="30"/>
+				<h:outputText value="Data de Nascimento: "/>
+				<p:calendar value="#{alunoBean.aluno.dataNascimento}" size="10"
+					pattern="dd/MM/yyyy" maxdate="#{alunoBean.dataAtual}"
+					navigator="true" yearRange="1950:2020"/>
+				<h:outputText value="Cpf: "/>
+				<p:inputMask value="#{alunoBean.aluno.cpf}" mask="999.999.999-99" 
+					size="12"/>
+				<h:outputText value="Email "/>
+				<p:inputText value="#{alunoBean.aluno.email}" size="25"/>
+				<h:outputText value="Telefone: "/>
+				<p:inputMask value="#{alunoBean.aluno.telefone}" mask="(99)9?99999999"
+					size="12" />
+				<h:outputText value="Ativo"/>
+				<p:selectBooleanCheckbox value="#{alunoBean.aluno.ativo}"/>
+			</p:panelGrid>
+		</p:panel>
+		<p:panel header="Dados do Endereço">
+			<p:panelGrid columns="2">
+				<h:outputText value="Logradouro: "/>
+				<p:inputText value="#{alunoBean.aluno.endereco.logradouro}" size="25"/>
+				<h:outputText value="Número:"/>
+				<p:inputText value="#{alunoBean.aluno.endereco.numero}" size="5"/>
+				<h:outputText value="CEP:"/>
+				<p:inputMask mask="99999-999" value="#{alunoBean.aluno.endereco.cep}" 
+					size="10"/>
+				<h:outputText value="Estado:"/>
+				<p:selectOneMenu value="#{alunoBean.aluno.endereco.cidade.estado}">
+					<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
+					<f:selectItems value="#{alunoBean.estados}" var="estado"
+					 itemLabel="#{estado.label}" itemValue="#{estado}"/>
+					 <p:ajax event=""></p:ajax>
+				</p:selectOneMenu>
+				<h:outputText value="Cidade:"/>
+				<p:selectOneMenu value="#{alunoBean.aluno.endereco.cidade}">
+					<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
+					<f:selectItems value="#{alunoBean.cidadesDoEstado}" var="cidade"
+						itemLabel="#{cidade.nome}" itemValue="#{cidade.id}"/>
+				</p:selectOneMenu>
+			</p:panelGrid>
+		</p:panel>
+		<br/>
 		<p:commandButton value="Salvar" icon="salvar-icon" action="#{alunoBean.salvar}"
 			update="aluno_form"/>
 		<p:commandButton value="Voltar" icon="voltar-icon" immediate="true"
