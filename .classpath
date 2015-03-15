@@ -27,5 +27,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/prettyfaces-jsf2-3.3.3.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/all-themes-1.0.9.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces-5.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

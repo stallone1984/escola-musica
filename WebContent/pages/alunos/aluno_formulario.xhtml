@@ -22,7 +22,7 @@
 				<p:inputText value="#{alunoBean.aluno.email}" size="25"/>
 				<h:outputText value="Telefone: "/>
 				<p:inputMask value="#{alunoBean.aluno.telefone}" mask="(99)9?99999999"
-					size="12" />
+					size="12" placeHolder=""/>
 				<h:outputText value="Ativo"/>
 				<p:selectBooleanCheckbox value="#{alunoBean.aluno.ativo}"/>
 			</p:panelGrid>
@@ -41,14 +41,19 @@
 					<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
 					<f:selectItems value="#{alunoBean.estados}" var="estado"
 					 itemLabel="#{estado.label}" itemValue="#{estado}"/>
-					 <p:ajax event=""></p:ajax>
+					<p:ajax event="change" update="combo-cidades"/>
 				</p:selectOneMenu>
-				<h:outputText value="Cidade:"/>
-				<p:selectOneMenu value="#{alunoBean.aluno.endereco.cidade}">
+				<h:panelGroup id="label-cidades-group">
+					<h:outputText value="Cidade:"/>
+				</h:panelGroup>
+				<p:selectOneMenu id="combo-cidades" value="#{alunoBean.aluno.endereco.cidade}" 
+					disabled="#{alunoBean.aluno.endereco.cidade.estado == null}"
+					converter="cidadeEntityConverter">
 					<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
 					<f:selectItems value="#{alunoBean.cidadesDoEstado}" var="cidade"
-						itemLabel="#{cidade.nome}" itemValue="#{cidade.id}"/>
+						itemLabel="#{cidade.nome}" itemValue="#{cidade}"/>
 				</p:selectOneMenu>
+				
 			</p:panelGrid>
 		</p:panel>
 		<br/>
