@@ -9,6 +9,22 @@
 	<p:panel header="Cadastro de Alunos" rendered="#{alunoBean.aluno != null}">
 		<p:panel header="Dados do Aluno">
 			<p:panelGrid columns="2">
+				<h:outputText value="Imagem:"/>
+				
+				<p:fileUpload fileUploadListener="#{alunoBean.enviarFoto}" 
+				 	 auto="true" update="pg-texto-previa pg-imagem-previa"
+				 	 label="Selecione uma imagem" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+				 	 invalidFileMessage="Formato de arquivo inválido" multiple="false"
+				 	 sizeLimit="1000000" invalidSizeMessage="Tamanho de arquivo inválido"
+				 	 dragDropSupport="true" mode="advanced"/>
+				 	 
+				<h:panelGroup id="pg-texto-previa">
+					<h:outputText value="Prévia:" rendered="#{alunoBean.aluno.foto != null}"/>
+				</h:panelGroup>
+				<h:panelGroup id="pg-imagem-previa">
+					<p:graphicImage  value="#{alunoBean.aluno.imagem}" cache="false"
+						style="width:100px; height:100px;" rendered="#{alunoBean.aluno.foto != null}"/>
+				</h:panelGroup>
 				<h:outputText value="Nome: "/>
 				<p:inputText value="#{alunoBean.aluno.nome}" size="30"/>
 				<h:outputText value="Data de Nascimento: "/>

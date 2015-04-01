@@ -6,39 +6,58 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:panel header="Alunos Cadastrados" rendered="#{alunoBean.aluno eq null}">
-		<p:commandButton value="Novo Aluno" icon="adicionar-icon"
-			action="#{alunoBean.novoAluno}" update="aluno_form"/>
-		<br/><br/>
-		
-		<p:dataTable value="#{alunoBean.alunos}" var="aluno"
-			paginator="true" rows="10" rowsPerPageTemplate="5, 10, 15"
-			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
+<p:panel header="Alunos Cadastrados"
+	rendered="#{alunoBean.aluno eq null}">
+	<p:commandButton value="Novo Aluno" icon="adicionar-icon"
+		action="#{alunoBean.novoAluno}" update="aluno_form" />
+	<br />
+	<br />
+
+	<p:dataTable value="#{alunoBean.alunos}" var="aluno" paginator="true"
+		rows="10" rowsPerPageTemplate="5, 10, 15"
+		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
 				{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-			<p:column headerText="Nome" style="width:300px;">
-				<h:outputText value="#{aluno.nome}"/>
-			</p:column>
-			<p:column headerText="CPF" style="width:150px;">
-				<h:outputText value="#{aluno.cpf}"/>
-			</p:column>
-			<p:column headerText="email" style="width:250px;">
-				<h:outputText value="#{aluno.email}"/>
-			</p:column>
-			<p:column headerText="Data Nascimento" style="width:100px;">
-				<h:outputText value="#{aluno.dataNascimento}">
-					<f:convertDateTime pattern="dd/MM/yyyy"/>
-				</h:outputText>
-			</p:column>
-			<p:column headerText="Ativo" style="width:60px;">
-				<h:outputText value="#{aluno.ativo ? 'Sim' : 'Não'}"/>
-			</p:column>
-			<p:column style="width:60px; text-align:center;">
-				<p:commandButton icon="editar-icon" action="#{alunoBean.editar(aluno)}" update=":aluno_form"/>
-			</p:column>
-		</p:dataTable>	
-		
-	</p:panel>
-	
+		<p:column style="text-align:center">
+			<p:graphicImage value="#{alunoBean.imagemAluno}" width="60"
+				height="60" cache="false" rendered="#{aluno.foto != null}">
+				<f:param name="id_aluno" value="#{aluno.id}" />
+			</p:graphicImage>
+		</p:column>
+		<p:column headerText="Nome" style="width:300px;">
+			<h:outputLink id="foto" value="#">
+				<h:outputText value="#{aluno.nome}" />
+			</h:outputLink>
+			<p:tooltip id="toolTipFoto" for="foto" 
+				showEffect="clip" hideEffect="slide" >
+				<p:graphicImage value="#{alunoBean.imagemAluno}" width="180"
+					height="180" cache="false" rendered="#{aluno.foto != null}">
+					<f:param name="id_aluno" value="#{aluno.id}" />
+				</p:graphicImage>
+				<h:outputText value="Sem foto" rendered="#{aluno.foto == null}"/>
+			</p:tooltip>
+		</p:column>
+		<p:column headerText="CPF" style="width:150px;">
+			<h:outputText value="#{aluno.cpf}" />
+		</p:column>
+		<p:column headerText="email" style="width:250px;">
+			<h:outputText value="#{aluno.email}" />
+		</p:column>
+		<p:column headerText="Data Nascimento" style="width:100px;">
+			<h:outputText value="#{aluno.dataNascimento}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Ativo" style="width:60px;">
+			<h:outputText value="#{aluno.ativo ? 'Sim' : 'Não'}" />
+		</p:column>
+		<p:column style="width:60px; text-align:center;">
+			<p:commandButton icon="editar-icon"
+				action="#{alunoBean.editar(aluno)}" update=":aluno_form" />
+		</p:column>
+	</p:dataTable>
+
+</p:panel>
+
 </html>
 
 

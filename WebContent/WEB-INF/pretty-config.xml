@@ -21,4 +21,10 @@
    	<view-id value="/pages/alunos/aluno_wrapper.jsf"/>
    	<action onPostback="false">#{alunoBean.iniciarBean}</action>
    </url-mapping>
+   
+   <url-mapping id="cidademanutencao">
+   	<pattern value="/cidade/manutencao/" />
+   	<view-id value="/pages/cidades/cadastro_cidade.jsf"/>
+   	<action onPostback="false">#{cidadeBean.iniciarBean}</action>
+   </url-mapping>
 </pretty-config>
