@@ -4,3 +4,8 @@
 .editar-icon{background: url("icons/editar.png") !important;}
 .excluir-icon{background: url("icons/excluir.png") !important;}
 .cursos-icon{background: url("icons/cursos.png") !important;}
+
+.ui-growl{
+	top: 10%;
+	left: 40%;
+}

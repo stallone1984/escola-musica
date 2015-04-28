@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<ui:composition 
-	template="/pages/layout/template.xhtml"
+<ui:composition template="/pages/layout/template.xhtml"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -9,60 +8,130 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="titulo">Cidades</ui:define>
+	<ui:define name="header">
+		<meta charset="utf-8" />
+	</ui:define>
 
 	<ui:define name="principal">
 		<p:panel header="Cadastro de Cidades">
 			<h:form id="form-cidade">
-				<p:growl id="msgs" autoUpdate="true"/>
-				<p:toolbar>
-			        <f:facet name="left">
-			            <p:commandButton value="Nova" icon="ui-icon-document"
-			            	oncomplete="PF('cadastroCidadeDialog').show()"
-			            	process="@this"/>
-			 
-			            <span class="ui-separator">
-			                <span class="ui-icon ui-icon-grip-dotted-vertical" />
-			            </span>
-			 
-			            <p:commandButton title="Editar" icon="ui-icon-pencil" />
-			            <p:commandButton title="Excluir" icon="ui-icon-trash" />
-			        </f:facet>
-			 
-			    </p:toolbar>
-				<br/>
-				<p:dataTable value="#{cidadeBean.cidades}" var="cidade" id="tabela-cidades"
-					style="width:50%;" paginator="true" rows="50" rowsPerPageTemplate="25, 50, 100"
+				<p:growl id="msgs" />
+				<p:toolbar id="toolbar">
+					<f:facet name="left">
+						<p:commandButton value="Nova" icon="ui-icon-document"
+							oncomplete="PF('cadastroCidadeDialog').show()" process="@this"
+							update="cidade-dialog">
+							<p:resetInput target="cidade-dialog" />
+						</p:commandButton>
+
+						<span class="ui-separator"> <span
+							class="ui-icon ui-icon-grip-dotted-vertical" />
+						</span>
+
+						<p:commandButton title="Editar" icon="ui-icon-pencil"
+							disabled="#{cidadeBean.cidadeSelecionada == null}"
+							oncomplete="PF('cadastroCidadeDialog').show()" process="@this"
+							update="cidade-dialog">
+							<p:resetInput target="cidade-dialog" />
+							<f:setPropertyActionListener target="#{cidadeBean.cidade}"
+								value="#{cidadeBean.cidadeSelecionada}" />
+						</p:commandButton>
+
+						<p:commandButton title="Excluir" icon="ui-icon-trash"
+							disabled="#{cidadeBean.cidadeSelecionada == null}"
+							oncomplete="PF('exclusaoCidadeDialog').show()" process="@this" />
+					</f:facet>
+
+				</p:toolbar>
+
+				<br />
+				<p:dataTable value="#{cidadeBean.cidades}" var="cidade"
+					id="tabela-cidades" style="width:50%;" paginator="true" rows="50"
+					rowsPerPageTemplate="25, 50, 100"
 					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
-					{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-					<p:column headerText="Nome" filterBy="#{cidade.nome}" 
+					{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					selection="#{cidadeBean.cidadeSelecionada}" selectionMode="single"
+					rowKey="#{cidade.id}" editable="true" editMode="cell">
+
+					<p:ajax event="rowSelect" update=":form-cidade:toolbar" />
+					<p:ajax event="rowUnselect" update=":form-cidade:toolbar" />
+
+					<p:ajax event="rowEdit" listener="#{cidadeBean.onRowEdit}"
+						update="tabela-cidades :form-cidade:msgs" />
+						
+					<p:ajax event="cellEdit" listener="#{cidadeBean.onCellEdit}" 
+						update="tabela-cidades :form-cidade:msgs"/>
+
+					<p:column headerText="Nome" filterBy="#{cidade.nome}"
 						filterMatchMode="contains" sortBy="#{cidade.nome}">
-						<h:outputText value="#{cidade.nome}"/>
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cidade.nome}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{cidade.nome}" style="width:98%;" />
+							</f:facet>
+						</p:cellEditor>
+
 					</p:column>
 					<p:column headerText="Estado" style="width:35%">
-						<h:outputText value="#{cidade.estado.label}"/>
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cidade.estado.label}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:selectOneMenu value="#{cidade.estado}" style="width:200px;"
+									filter="true" filterMatchMode="contains">
+									<f:selectItem itemLabel=":: Selecione::" itemValue="#{null}" />
+									<f:selectItems value="#{cidadeBean.estados}" var="estado"
+										itemLabel="#{estado.label}" itemValue="#{estado}" />
+								</p:selectOneMenu>
+							</f:facet>
+						</p:cellEditor>
 					</p:column>
+					
 				</p:dataTable>
-				
+
+
 				<p:dialog header="Nova Cidade" widgetVar="cadastroCidadeDialog"
 					modal="true" resizable="false" draggable="false" id="cidade-dialog"
-					closeOnEscape="true" width="350" >
-					<h:panelGrid columns="2" cellpadding="5">
-						<h:outputLabel value="Nome:"/>
-						<p:inputText value="#{cidadeBean.cidade.nome}"/>
-						<h:outputLabel value="Estado:"/>
-						<p:selectOneMenu value="#{cidadeBean.cidade.estado}">
-							<f:selectItem itemLabel=":: Selecione::" itemValue="#{null}"/>
+					closeOnEscape="true" width="350">
+					<h:panelGrid columns="2" cellpadding="5" id="cidade-grid">
+						<h:outputLabel value="Nome:" />
+						<p:inputText value="#{cidadeBean.cidade.nome}" size="30" />
+						<h:outputLabel value="Estado:" />
+						<p:selectOneMenu value="#{cidadeBean.cidade.estado}"
+							style="width:200px;">
+							<f:selectItem itemLabel=":: Selecione::" itemValue="#{null}" />
 							<f:selectItems value="#{cidadeBean.estados}" var="estado"
-								itemLabel="#{estado.label}" itemValue="#{estado}"/>
+								itemLabel="#{estado.label}" itemValue="#{estado}" />
 						</p:selectOneMenu>
 					</h:panelGrid>
-					<p:commandButton value="Salvar" icon="ui-icon-disk" 
-						action="#{cidadeBean.salvar}" oncomplete="PF('cadastroCidadeDialog').hide()"
-						update="tabela-cidades"/>
-					<p:commandButton value="Cancelar" icon="ui-icon-close" 
-						style="margin-left:8px;" oncomplete="PF('cadastroCidadeDialog').hide()"
-						immediate="true" action="#{cidadeBean.cancelar}"/>
+					<p:commandButton value="Salvar" icon="ui-icon-disk"
+						action="#{cidadeBean.salvar}"
+						oncomplete="if(!args.validationFailed) PF('cadastroCidadeDialog').hide()"
+						update="tabela-cidades cidade-grid toolbar" />
+					<p:commandButton value="Cancelar" icon="ui-icon-close"
+						style="margin-left:8px;"
+						oncomplete="PF('cadastroCidadeDialog').hide()" process="@this"
+						action="#{cidadeBean.cancelar}" update="tabela-cidades toolbar" />
 				</p:dialog>
+
+
+				<p:confirmDialog message="Deseja realmente excluir esta cidade?"
+					widgetVar="exclusaoCidadeDialog" header="Excluir Cidade">
+
+					<p:commandButton value="Sim" action="#{cidadeBean.excluir}"
+						process="@this" oncomplete="PF('exclusaoCidadeDialog').hide()"
+						update="toolbar tabela-cidades" />
+
+					<p:commandButton value="Não"
+						oncomplete="PF('exclusaoCidadeDialog').hide()" process="@this"
+						update="toolbar tabela-cidades">
+						<f:setPropertyActionListener
+							target="#{cidadeBean.cidadeSelecionada}" value="#{null}" />
+					</p:commandButton>
+				</p:confirmDialog>
 			</h:form>
 		</p:panel>
 	</ui:define>
