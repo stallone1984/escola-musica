@@ -8,17 +8,19 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
 import escola.musica.dao.CursoDAO;
-import escola.musica.dao.GenericDAO;
 import escola.musica.modelo.Curso;
 import escola.musica.modelo.TipoCurso;
+import escola.musica.servico.CursoServico;
 
-@ManagedBean
-@ViewScoped
+@Controller("cursoBean")
+@Scope("session")
 public class CursoBean implements Serializable{
 
 	private static final long serialVersionUID = -862660658464075437L;
@@ -30,9 +32,12 @@ public class CursoBean implements Serializable{
 	private Curso cursoExclusao;
 	private List<Curso> cursosFiltrados;
 	
+	@Autowired
+	private CursoServico cursoServico;
+	
 	public void iniciarBean(){
-		cursos = new CursoDAO().listarTodos();
-		cursosAccordion = CursoDAO.listarCursosAccordion();
+		cursos = cursoServico.listarTodos();
+		cursosAccordion = cursoServico.listarCursosAccordion();
 		tipos = Arrays.asList(TipoCurso.values());
 	}
 	
@@ -42,9 +47,9 @@ public class CursoBean implements Serializable{
 
 	public void salvar() throws InterruptedException{
 		Thread.sleep(2000);
-		new GenericDAO<Curso>(Curso.class).salvar(curso);
+		cursoServico.salvar(curso);
 		//new CursoDAO().salvar(curso);
-		cursos = new GenericDAO<Curso>(Curso.class).listarTodos();
+		cursos = cursoServico.listarTodos();
 		//cursos = new CursoDAO().listarTodos();
 		curso = null;
 		FacesContext.getCurrentInstance().addMessage(
@@ -61,7 +66,7 @@ public class CursoBean implements Serializable{
 	}
 	
 	public void excluir(){
-		new CursoDAO().excluir(cursoExclusao);
+		cursoServico.excluir(cursoExclusao);
 		FacesContext.getCurrentInstance().addMessage(null, 
 				new FacesMessage("Curso excluído com sucesso!"));
 		cursos = new CursoDAO().listarTodos();
