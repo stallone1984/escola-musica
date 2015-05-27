@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel header="Lista da Matrículas" rendered="#{matriculaBean.matricula == null}">
+		<p:commandButton value="Nova Matricula" action="#{matriculaBean.novaMatricula}" update="matricula_form"
+			icon="adicionar-icon"/>
+		
+		<p:dataTable value="#{matriculaBean.matriculas}" var="matricula" style="margin-top:10px;"
+			emptyMessage="Nenhuma matrícula cadastrada">
+			<p:column headerText="Número">
+				<h:outputText value="#{matricula.numero}"/>
+			</p:column>
+			<p:column headerText="Aluno">
+				<h:outputText value="#{matricula.aluno.nome}"/>
+			</p:column>
+			<p:column headerText="Curso">
+				<h:outputText value="#{matricula.curso.nome}"/>
+			</p:column>
+			<p:column headerText="Data">
+				<h:outputText value="#{matricula.dataMatricula}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+			<p:column>
+				<p:commandButton icon="editar-icon" action="#{matriculaBean.editar(matricula)}"
+					 update=":matricula_form"/>
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+
+</html>
+
+
+
+
+
+
+

@@ -10,7 +10,7 @@ public class EnvioEmailServicoImpl implements EnvioEmailServico{
 
 	@Override
 	//@Scheduled(fixedDelay = 5000)
-	@Scheduled(cron = "30 42 1 * * *")
+	//@Scheduled(cron = "30 42 1 * * *")
 	public void enviarEmail() {
 		System.out.println("Enviando email...");
 	}

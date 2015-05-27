@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:panel header="Cadastro de Matriculas" rendered="#{matriculaBean.matricula != null}">
+	
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Número: "/>
+			<p:inputText value="#{matriculaBean.matricula.numero}"/>
+			<h:outputLabel value="Data: "/>
+			<p:calendar value="#{matriculaBean.matricula.dataMatricula}" pattern="dd/MM/yyyy" mask="99/99/9999"/>
+			<h:outputLabel value="Aluno: "/>
+			<p:selectOneMenu value="#{matriculaBean.matricula.aluno}" converter="alunoConverter">
+				<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+				<f:selectItems value="#{matriculaBean.alunos}" var="aluno"
+					itemLabel="#{aluno.nome}" itemValue="#{aluno}"/>
+			</p:selectOneMenu>
+			<h:outputLabel value="Curso: "/>
+			<p:selectOneMenu value="#{matriculaBean.matricula.curso}" converter="cursoConverter">
+				<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+				<f:selectItems value="#{matriculaBean.cursos}" var="curso"
+					itemLabel="#{curso.nome}" itemValue="#{curso}"/>
+			</p:selectOneMenu>
+			<h:outputLabel value="Ativo: "/>
+			<p:selectBooleanCheckbox value="#{matriculaBean.matricula.ativo}"/>
+		</h:panelGrid>
+		
+		<p:commandButton value="Salvar" icon="salvar-icon" action="#{matriculaBean.salvar}" update="matricula_form"/>
+		<p:commandButton value="Cancelar" action="#{matriculaBean.cancelar}" update="matricula_form"/>
+	</p:panel>
+	
+
+</html>
