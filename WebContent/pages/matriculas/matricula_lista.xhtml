@@ -10,24 +10,24 @@
 		<p:commandButton value="Nova Matricula" action="#{matriculaBean.novaMatricula}" update="matricula_form"
 			icon="adicionar-icon"/>
 		
-		<p:dataTable value="#{matriculaBean.matriculas}" var="matricula" style="margin-top:10px;"
-			emptyMessage="Nenhuma matrícula cadastrada">
-			<p:column headerText="Número">
+		<p:dataTable value="#{matriculaBean.matriculaVos}" var="matricula" style="margin-top:10px; width:60%"
+			emptyMessage="Nenhuma matrícula cadastrada" >
+			<p:column headerText="Número" width="100">
 				<h:outputText value="#{matricula.numero}"/>
 			</p:column>
 			<p:column headerText="Aluno">
-				<h:outputText value="#{matricula.aluno.nome}"/>
+				<h:outputText value="#{matricula.nomeAluno}"/>
 			</p:column>
-			<p:column headerText="Curso">
-				<h:outputText value="#{matricula.curso.nome}"/>
+			<p:column headerText="Curso" width="250">
+				<h:outputText value="#{matricula.nomeCurso}"/>
 			</p:column>
-			<p:column headerText="Data">
-				<h:outputText value="#{matricula.dataMatricula}">
+			<p:column headerText="Data" width="80">
+				<h:outputText value="#{matricula.data}">
 					<f:convertDateTime pattern="dd/MM/yyyy"/>
 				</h:outputText>
 			</p:column>
-			<p:column>
-				<p:commandButton icon="editar-icon" action="#{matriculaBean.editar(matricula)}"
+			<p:column width="50" style="text-align:center">
+				<p:commandButton icon="editar-icon" action="#{matriculaBean.editar(matricula.id)}"
 					 update=":matricula_form"/>
 			</p:column>
 		</p:dataTable>

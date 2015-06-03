@@ -26,6 +26,12 @@ public class Curso implements Serializable{
 	private double duracao = 1;
 	private TipoCurso tipo;
 	private Date dataCriacao;
+	
+	public Curso(){}
+
+	public Curso(String nome) {
+		this.nome = nome;
+	}
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)

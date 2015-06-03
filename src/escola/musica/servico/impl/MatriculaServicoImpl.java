@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import escola.musica.modelo.Matricula;
+import escola.musica.modelo.MatriculaVO;
 import escola.musica.servico.MatriculaServico;
 
 @Service("matriculaServico")
@@ -20,13 +21,24 @@ public class MatriculaServicoImpl implements MatriculaServico{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Matricula> listarTodas() {
-		return entityManager.createQuery("from Matricula").getResultList();
+	public List<MatriculaVO> listarTodas() {
+		return entityManager.createNamedQuery(Matricula.LISTAR_TODAS).getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Matricula> listarTodasAtivas() {
+		return entityManager.createNamedQuery("Matricula.ListarTodasAtivas").getResultList();
 	}
 
 	@Override
 	public void salvar(Matricula matricula) {
 		entityManager.merge(matricula);
+	}
+
+	@Override
+	public Matricula obterPorId(Integer id) {
+		return entityManager.find(Matricula.class, id);
 	}
 
 }

@@ -3,9 +3,7 @@ package escola.musica.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import escola.musica.modelo.Aluno;
 import escola.musica.modelo.Curso;
 import escola.musica.modelo.Matricula;
+import escola.musica.modelo.MatriculaVO;
 import escola.musica.servico.AlunoServico;
 import escola.musica.servico.CursoServico;
 import escola.musica.servico.MatriculaServico;
+import escola.musica.util.Mensagem;
 
 @Controller("matriculaBean")
 @Scope("session")
@@ -27,6 +27,7 @@ public class MatriculaBean implements Serializable {
 
 	private Matricula matricula;
 	private List<Matricula> matriculas;
+	private List<MatriculaVO> matriculaVos;
 	private List<Aluno> alunos;
 	private List<Curso> cursos;
 
@@ -44,19 +45,22 @@ public class MatriculaBean implements Serializable {
 	}
 	
 	public void salvar(){
+		if(matricula.getNumero().length() < 3){
+			Mensagem.mensagemErro("O campo matrícula deve ter no mínimo 3 caracteres");
+			return;
+		}
 		matriculaServico.salvar(matricula);
 		atualizarMatriculas();
 		matricula = null;
-		FacesContext.getCurrentInstance().addMessage(null, 
-				new FacesMessage("Matrícula cadastrada com sucesso!"));
+		Mensagem.mensagemInformacao("Matrícula cadastrada com sucesso!");
 	}
 	
 	public void novaMatricula(){
 		matricula = new Matricula();
 	}
 	
-	public void editar(Matricula matricula){
-		this.matricula = matricula;
+	public void editar(Integer id){
+		this.matricula = matriculaServico.obterPorId(id);
 	}
 	
 	public void cancelar(){
@@ -64,7 +68,8 @@ public class MatriculaBean implements Serializable {
 	}
 
 	private void atualizarMatriculas() {
-		matriculas = matriculaServico.listarTodas();
+		//matriculas = matriculaServico.listarTodas();
+		matriculaVos = matriculaServico.listarTodas();
 	}
 
 	public Matricula getMatricula() {
@@ -99,4 +104,13 @@ public class MatriculaBean implements Serializable {
 		this.cursos = cursos;
 	}
 
+	public List<MatriculaVO> getMatriculaVos() {
+		return matriculaVos;
+	}
+
+	public void setMatriculaVos(List<MatriculaVO> matriculaVos) {
+		this.matriculaVos = matriculaVos;
+	}
+
+	
 }

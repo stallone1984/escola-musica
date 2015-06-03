@@ -7,7 +7,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.IOUtils;
@@ -24,6 +23,7 @@ import escola.musica.modelo.Cidade;
 import escola.musica.modelo.Estado;
 import escola.musica.servico.AlunoServico;
 import escola.musica.servico.CidadeServico;
+import escola.musica.util.Mensagem;
 
 @Controller("alunoBean")
 @Scope("session")
@@ -52,8 +52,7 @@ public class AlunoBean implements Serializable {
 
 	public void salvar() {
 		alunoServico.salvar(aluno);
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage("Aluno cadastrado com sucesso"));
+		Mensagem.mensagemInformacao("Aluno cadastrado com sucesso");
 		alunos = alunoServico.listarTodos();
 		aluno = null;
 	}

@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import org.primefaces.component.datatable.DataTable;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import escola.musica.modelo.Cidade;
 import escola.musica.modelo.Estado;
 import escola.musica.servico.CidadeServico;
+import escola.musica.util.Mensagem;
 
 @Controller("cidadeBean")
 @Scope
@@ -37,8 +35,7 @@ public class CidadeBean implements Serializable {
 
 	public void salvar() {
 		cidadeServico.salvar(cidade);
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage("Cidade cadastrada com sucesso!"));
+		Mensagem.mensagemInformacao("Cidade cadastrada com sucesso!");
 		cidade = new Cidade();
 		cidadeSelecionada = null;
 		consultar();
