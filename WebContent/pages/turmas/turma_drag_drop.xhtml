@@ -1,0 +1,69 @@
+<ui:composition template="/pages/layout/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Turmas Drag Drop</ui:define>
+	<ui:define name="header">
+		<meta charset="utf-8" />
+		<script type="text/javascript">
+			function handleDrop(event, ui) {
+				var droppedMatricula = ui.draggable;
+
+				droppedMatricula.fadeOut('fast');
+			}
+		</script>
+	</ui:define>
+
+	<ui:define name="principal">
+		<h:form id="turma_drag_drop_form">
+			<p:fieldset legend="Alunos Matriculados" style="margin-top:10px;">
+				<p:dataGrid id="alunos-matriculados" value="#{turmaBean.matriculas}" var="matricula"
+					columns="3">
+					<p:panel id="painel-matriculas" header="#{matricula.aluno.nome}">
+						<h:panelGrid columns="2" cellpadding="8">
+							<p:graphicImage value="#{turmaBean.imagemAluno}" width="60"
+								height="60" cache="false" rendered="#{matricula.aluno.foto != null}">
+								<f:param name="id_aluno" value="#{matricula.aluno.id}" />
+							</p:graphicImage>
+							<h:panelGrid columns="2">
+								<h:outputText value="Matrícula:" />
+								<h:outputText value="#{matricula.numero}" />
+								<h:outputText value="Curso:" />
+								<h:outputText value="#{matricula.curso.nome}" />
+							</h:panelGrid>
+						</h:panelGrid>
+					</p:panel>
+					<p:draggable for="painel-matriculas" revert="true"
+						handle=".ui-panel-titlebar" stack=".ui-panel"></p:draggable>
+				</p:dataGrid>
+			</p:fieldset>
+
+			<p:fieldset id="turma" legend="Turma de Teoria - 1º Ano" style="margin-top:10px;">
+				<p:outputPanel id="drop-area">
+					<h:outputText value="Arraste a matrícula e solte aqui" style="font-size:20px;"
+						rendered="#{empty turmaBean.matriculasInseridas}"/>
+					<p:dataTable value="#{turmaBean.matriculasInseridas}" var="matricula"
+						rendered="#{not empty turmaBean.matriculasInseridas}">
+						<p:column headerText="Número">
+							<h:outputText value="#{matricula.numero}"/>
+						</p:column>
+						<p:column headerText="Aluno">
+							<h:outputText value="#{matricula.aluno.nome}"/>
+						</p:column>
+						<p:column headerText="Curso">
+							<h:outputText value="#{matricula.curso.nome}"/>
+						</p:column>
+					</p:dataTable>
+				</p:outputPanel>
+			</p:fieldset>
+			
+			<p:droppable for="turma" datasource="alunos-matriculados" onDrop="handleDrop" tolerance="touch"
+				activeStyleClass="ui-state-highlight">
+				<p:ajax listener="#{turmaBean.onMatriculaDrop}" update="drop-area alunos-matriculados"></p:ajax>
+			</p:droppable>
+		</h:form>
+	</ui:define>
+</ui:composition>
