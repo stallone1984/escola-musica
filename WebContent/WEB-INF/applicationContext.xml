@@ -5,6 +5,8 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:task="http://www.springframework.org/schema/task"
     xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:sec="http://www.springframework.org/schema/security"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context
@@ -12,7 +14,9 @@
     http://www.springframework.org/schema/task
     http://www.springframework.org/schema/task/spring-task-3.0.xsd
     http://www.springframework.org/schema/tx
-    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
     
     <bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -42,6 +46,49 @@
 	
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<sec:global-method-security
+		secured-annotations="enabled" />
+		
+	<sec:http pattern="/css/*" security="none"/>
+	<sec:http pattern="/css/**" security="none"/>
+	<sec:http pattern="/fonts/*" security="none"/>
+	<sec:http pattern="/fonts/**" security="none"/>
+	<sec:http pattern="/js/*" security="none"/>
+	<sec:http pattern="/js/**" security="none"/>
+	<sec:http pattern="/resources/imagens/*" security="none"/>
+	<sec:http pattern="/javax.faces.resource/**" security="none"/>
+	<sec:http pattern="/pages/login/login.jsf" security="none"/>
+	
+	<sec:http auto-config="true">
+		<sec:form-login login-page="/pages/login/login.jsf"
+			default-target-url="/pages/template/main.jsf" always-use-default-target="false"
+			authentication-failure-handler-ref="authenticationFailureHandler"/>
+		<sec:intercept-url pattern="/**" access="ROLE_USER" />
+		<sec:logout success-handler-ref="logoutHandler" delete-cookies="SPRING_SECURITY_REMEMBER_ME_COOKIE,JSESSIONID"/>
+	</sec:http>
+	
+	<bean id="logoutHandler" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+		<property name="defaultTargetUrl" value="/login/" />
+    	<property name="redirectStrategy" ref="authenticationFailureRedirectStrategy" />
+	</bean>
+	
+	<bean id="authenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<property name="defaultFailureUrl" value="/login/failure" />
+    	<property name="redirectStrategy" ref="authenticationFailureRedirectStrategy" />
+	</bean>
+	
+	<bean id="customAuthenticationProvider"
+		class="escola.musica.autenticacao.CustomAuthenticationProvider" />
+
+	<sec:authentication-manager>
+		<sec:authentication-provider ref="customAuthenticationProvider" />
+	</sec:authentication-manager>
+	
+	<bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+		<constructor-arg value="256" />
 	</bean>
 
 	<task:annotation-driven/>
