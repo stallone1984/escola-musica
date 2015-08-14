@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="header">
+		<meta charset="utf-8" />
+	</ui:define>
+
+	<p:panel header="Lista de Usuarios Professor" 
+		rendered="#{usuarioProfessorBean.usuarioProfessor == null}">
+	
+		<p:commandButton value="Novo Usuario" icon="adicionar-icon"
+			action="#{usuarioProfessorBean.novoUsuarioProfessor}" 
+			update="usuario_professor_form"/>
+			
+		<p:dataTable value="#{usuarioProfessorBean.usuariosProfessor}" var="usuario">
+			<p:column headerText="Nome">
+				<h:outputText value="#{usuario.nome}"/>
+			</p:column>
+			<p:column headerText="Login">
+				<h:outputText value="#{usuario.login}"/>
+			</p:column>
+			<p:column headerText="Email">
+				<h:outputText value="#{usuario.email}"/>
+			</p:column>
+			<p:column headerText="Ativo">
+				<h:outputText value="#{usuario.ativo ? 'Sim' : 'Não'}"/>
+			</p:column>
+		</p:dataTable>
+		
+	</p:panel>
+
+</html>
+
+
+
+
+
+
+

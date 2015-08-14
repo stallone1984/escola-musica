@@ -1,0 +1,21 @@
+<ui:composition
+	template="/pages/layout/template.xhtml"
+ 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Usuário Professor</ui:define>
+	<ui:define name="header">
+		<meta charset="utf-8" />
+	</ui:define>
+	
+	<ui:define name="principal">
+		<h:form id="usuario_professor_form">
+			<p:growl />
+			<ui:include src="/pages/usuarios/professores/usuario_professor_formulario.xhtml" />
+			<ui:include src="/pages/usuarios/professores/usuario_professor_lista.xhtml" />
+		</h:form>
+	</ui:define>
+</ui:composition>

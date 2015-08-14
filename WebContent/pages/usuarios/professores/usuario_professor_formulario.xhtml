@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="header">
+		<meta charset="utf-8" />
+	</ui:define>
+	
+	<p:panel header="Cadastro de Usuario Professor" 
+		rendered="#{usuarioProfessorBean.usuarioProfessor != null}">
+		
+		<p:panelGrid columns="2">
+			<h:outputLabel value="Nome:"/>
+			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.nome}"/>
+			<h:outputLabel value="Email"/>
+			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.email}"/>
+			<h:outputLabel value="Grau Instrução:"/>
+			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.grauIntrucao}"/>
+			<h:outputLabel value="Ativo:"/>
+			<p:selectBooleanCheckbox value="#{usuarioProfessorBean.usuarioProfessor.ativo}"/>
+		</p:panelGrid>
+		
+		<p:commandButton value="Salvar" icon="salvar-icon" action="#{usuarioProfessorBean.salvar}"
+			update="usuario_professor_form"/>
+		<p:commandButton value="Voltar" icon="voltar-icon" action="#{usuarioProfessorBean.cancelar}"
+			update="usuario_professor_form"/>
+		
+	</p:panel>
+	
+
+</html>
