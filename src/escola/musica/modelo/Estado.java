@@ -21,7 +21,7 @@ public enum Estado {
 	PERNANBUCO("Pernambuco","PE"),
 	PIAUI("Piauí","PI"),
 	RORAIMA("Roraima","RR"),
-	RONDONIO("Rondônia","RO"),
+	RONDONIA("Rondônia","RO"),
 	RIO_DE_JANEIRO("Rio de Janeiro","RJ"),
 	RIO_GRANDE_DO_NORTE("Rio Grande do Norte","RN"),
 	RIO_GRANDE_DO_SUL("Rio Grande do Sul","RS"),

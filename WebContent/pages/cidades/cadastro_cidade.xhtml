@@ -58,9 +58,9 @@
 
 					<p:ajax event="rowEdit" listener="#{cidadeBean.onRowEdit}"
 						update="tabela-cidades :form-cidade:msgs" />
-						
-					<p:ajax event="cellEdit" listener="#{cidadeBean.onCellEdit}" 
-						update="tabela-cidades :form-cidade:msgs"/>
+
+					<p:ajax event="cellEdit" listener="#{cidadeBean.onCellEdit}"
+						update="tabela-cidades :form-cidade:msgs" />
 
 					<p:column headerText="Nome" filterBy="#{cidade.nome}"
 						filterMatchMode="contains" sortBy="#{cidade.nome}">
@@ -89,7 +89,7 @@
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
-					
+
 				</p:dataTable>
 
 
