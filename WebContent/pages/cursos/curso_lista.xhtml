@@ -9,7 +9,7 @@
 
 	<p:panel header="Cursos Cadastrados" style="width:80%;"
 		rendered="#{cursoBean.curso == null}">
-		<p:commandButton icon="adicionar-icon" value="Novo Curso" action="#{cursoBean.novoCurso}"
+		<p:commandButton icon="fa fa-plus" value="Novo Curso" action="#{cursoBean.novoCurso}"
 			update="curso_form"/>
 		<br/><br/>
 		<p:dataTable value="#{cursoBean.cursos}" var="curso" filteredValue="#{cursoBean.cursosFiltrados}"
@@ -44,10 +44,10 @@
 			</p:column>
 			
 			<p:column style="text-align:center;" exportable="false">
-				<p:commandButton icon="editar-icon" action="#{cursoBean.editar(curso)}"
+				<p:commandButton icon="fa fa-edit" action="#{cursoBean.editar(curso)}"
 					style="color:blue;" update=":curso_form"/>
 					
-				<p:commandButton icon="excluir-icon" 
+				<p:commandButton icon="fa fa-trash" 
 					actionListener="#{cursoBean.prepararExclusao(curso)}"
 					oncomplete="PF('confirmarExclusaoDialog').show();"
 					style="color:red; margin-left:20px;" update="@form"/>

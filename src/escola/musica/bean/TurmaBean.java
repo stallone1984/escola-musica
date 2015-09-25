@@ -18,6 +18,7 @@ import escola.musica.dao.GenericDAO;
 import escola.musica.modelo.Aluno;
 import escola.musica.modelo.Matricula;
 import escola.musica.servico.MatriculaServico;
+import escola.musica.util.Mensagem;
 
 @Controller("turmaBean")
 @Scope("session")
@@ -27,6 +28,7 @@ public class TurmaBean implements Serializable {
 
 	private List<Matricula> matriculas;
 	private List<Matricula> matriculasInseridas = new ArrayList<Matricula>();
+	private List<Matricula> matriculasSelecionadas;
 
 	@Autowired
 	private MatriculaServico matriculaServico;
@@ -34,11 +36,11 @@ public class TurmaBean implements Serializable {
 	public void iniciarBean() {
 		matriculas = matriculaServico.listarTodasAtivas();
 	}
-	
-	public void onMatriculaDrop(DragDropEvent event){
-	  Matricula matricula =	(Matricula) event.getData();
-	  matriculas.remove(matricula);
-	  matriculasInseridas.add(matricula);
+
+	public void onMatriculaDrop(DragDropEvent event) {
+		Matricula matricula = (Matricula) event.getData();
+		matriculas.remove(matricula);
+		matriculasInseridas.add(matricula);
 	}
 
 	public StreamedContent getImagemAluno() {
@@ -52,6 +54,16 @@ public class TurmaBean implements Serializable {
 		}
 
 		return new DefaultStreamedContent();
+	}
+	
+	public void removerMatriculas(){
+		if(matriculasSelecionadas.isEmpty()){
+			Mensagem.mensagemErro("Selecione ao menos uma matrícula para remover");
+			return;
+		}
+		matriculasInseridas.removeAll(matriculasSelecionadas);
+		matriculas.addAll(matriculasSelecionadas);
+		Mensagem.mensagemInformacao("Matrículas removidas com sucesso");
 	}
 
 	public List<Matricula> getMatriculas() {
@@ -76,6 +88,14 @@ public class TurmaBean implements Serializable {
 
 	public void setMatriculaServico(MatriculaServico matriculaServico) {
 		this.matriculaServico = matriculaServico;
+	}
+
+	public List<Matricula> getMatriculasSelecionadas() {
+		return matriculasSelecionadas;
+	}
+
+	public void setMatriculasSelecionadas(List<Matricula> matriculasSelecionadas) {
+		this.matriculasSelecionadas = matriculasSelecionadas;
 	}
 
 }

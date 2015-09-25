@@ -19,6 +19,7 @@
 
 	<ui:define name="principal">
 		<h:form id="turma_drag_drop_form">
+			<p:growl />
 			<p:fieldset legend="Alunos Matriculados" style="margin-top:10px;">
 				<p:dataGrid id="alunos-matriculados" value="#{turmaBean.matriculas}" var="matricula"
 					columns="3">
@@ -45,8 +46,13 @@
 				<p:outputPanel id="drop-area">
 					<h:outputText value="Arraste a matrícula e solte aqui" style="font-size:20px;"
 						rendered="#{empty turmaBean.matriculasInseridas}"/>
+					<p:commandButton value="Remover Matrículas Selecionadas" action="#{turmaBean.removerMatriculas}"
+						update="turma_drag_drop_form" rendered="#{not empty turmaBean.matriculasInseridas}"/>
+					<br/><br/>
 					<p:dataTable value="#{turmaBean.matriculasInseridas}" var="matricula"
-						rendered="#{not empty turmaBean.matriculasInseridas}">
+						rendered="#{not empty turmaBean.matriculasInseridas}"
+						rowKey="#{matricula.id}" selection="#{turmaBean.matriculasSelecionadas}">
+						<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 						<p:column headerText="Número">
 							<h:outputText value="#{matricula.numero}"/>
 						</p:column>

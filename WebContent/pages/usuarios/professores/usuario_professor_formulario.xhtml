@@ -13,11 +13,11 @@
 	<p:panel header="Cadastro de Usuario Professor" 
 		rendered="#{usuarioProfessorBean.usuarioProfessor != null}">
 		
-		<p:panelGrid columns="2">
+		<p:panelGrid columns="2" style="margin-bottom:10px;">
 			<h:outputLabel value="Nome:"/>
-			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.nome}"/>
+			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.nome}" size="30"/>
 			<h:outputLabel value="Email"/>
-			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.email}"/>
+			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.email}" size="30"/>
 			<h:outputLabel value="Grau Instrução:"/>
 			<p:inputText value="#{usuarioProfessorBean.usuarioProfessor.grauIntrucao}"/>
 			<h:outputLabel value="Ativo:"/>
@@ -27,7 +27,7 @@
 		<p:commandButton value="Salvar" icon="salvar-icon" action="#{usuarioProfessorBean.salvar}"
 			update="usuario_professor_form"/>
 		<p:commandButton value="Voltar" icon="voltar-icon" action="#{usuarioProfessorBean.cancelar}"
-			update="usuario_professor_form"/>
+			update="usuario_professor_form" style="margin-left:8px;"/>
 		
 	</p:panel>
 	

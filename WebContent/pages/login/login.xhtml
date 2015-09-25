@@ -4,20 +4,33 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 
 </h:head>
 <h:body>
+	<div style="text-align: center;">
 	<form action="#{request.contextPath}/j_spring_security_check" method="post">
-		<h:panelGrid columns="2">
-			<h:outputText value="Login:"/>
-			<p:inputText id="j_username"/>
-			<h:outputText value="Senha:"/>
-			<p:password id="j_password"/>
-			<input type="submit" value="Entrar" />
-		</h:panelGrid>
+		<p:panel style="width:400px; background:#FBFBF9; margin-left:35%">
+			<p:graphicImage library="imagens" name="seasonLogo.png" />
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputText value="Login:" style="font-weight:bold;"/>
+				<p:inputText id="j_username" size="25"/>
+				<h:outputText value="Senha:" style="font-weight:bold;"/>
+				<p:password id="j_password" size="25"/>
+			</h:panelGrid>
+			<h3>	
+				<input type="submit" value="Entrar" />
+			</h3>
+			<c:if test="#{param.erro != null}">
+				<div style="color:red; font-weight:bold;">
+					${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+				</div>
+			</c:if>
+		</p:panel>
 	</form>
+	</div>
 </h:body>
 </html>

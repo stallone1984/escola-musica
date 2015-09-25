@@ -25,6 +25,8 @@ public class EnvioEmailServicoImpl implements EnvioEmailServico{
 	public void enviarEmail(String assunto, String texto, 
 			List<File> anexos, String... destinatarios) {
 		//http://www.mballem.com/post/enviando-email-com-a-api-javamail/
+		// Url para liberar Acesso para aplicativos menos seguros
+		// https://www.google.com/settings/security/lesssecureapps
 		
 		try {
 			JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

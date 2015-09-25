@@ -3,8 +3,6 @@ package escola.musica.bean;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -15,8 +13,7 @@ import escola.musica.servico.UsuarioProfessorServico;
 import escola.musica.util.Mensagem;
 
 @Controller
-@Scope("session")
-@ManagedBean
+@Scope("view")
 public class UsuarioProfessorBean implements Serializable{
 
 	private static final long serialVersionUID = -1446484411632089350L;

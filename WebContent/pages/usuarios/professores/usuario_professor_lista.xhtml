@@ -17,8 +17,9 @@
 			action="#{usuarioProfessorBean.novoUsuarioProfessor}" 
 			update="usuario_professor_form"/>
 			
-		<p:dataTable value="#{usuarioProfessorBean.usuariosProfessor}" var="usuario">
-			<p:column headerText="Nome">
+		<p:dataTable value="#{usuarioProfessorBean.usuariosProfessor}" var="usuario"
+			style="width:70%; margin-top:10px;">
+			<p:column headerText="Nome" width="250">
 				<h:outputText value="#{usuario.nome}"/>
 			</p:column>
 			<p:column headerText="Login">
@@ -27,8 +28,12 @@
 			<p:column headerText="Email">
 				<h:outputText value="#{usuario.email}"/>
 			</p:column>
-			<p:column headerText="Ativo">
+			<p:column headerText="Ativo" width="80">
 				<h:outputText value="#{usuario.ativo ? 'Sim' : 'Não'}"/>
+			</p:column>
+			<p:column width="50">
+				<p:commandButton icon="editar-icon" action="#{usuarioProfessorBean.editar(usuario)}"
+					update=":usuario_professor_form"/>
 			</p:column>
 		</p:dataTable>
 		
