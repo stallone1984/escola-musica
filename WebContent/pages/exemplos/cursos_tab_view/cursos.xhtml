@@ -7,11 +7,35 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:panel header="Cursos Cadastrados" style="width:80%;"
-		rendered="#{cursoTabViewBean.curso == null}">
-		<p:commandButton icon="fa fa-plus" value="Novo Curso" action="#{cursoTabViewBean.novoCurso}"
-			update="curso_form"/>
-		<br/><br/>
+	<p:panel header="Cadastro de Cursos" style="width:80%;" >
+		<p:panelGrid columns="2" style="width:95%;">
+			<h:outputLabel value="Nome:"/>
+			<p:inputText value="#{cursoTabViewBean.curso.nome}" />
+			<h:outputLabel value="Descrição:" />
+			<p:inputTextarea value="#{cursoTabViewBean.curso.descricao}" 
+				cols="40" rows="3" maxlength="255"/>
+			<h:outputLabel value="Duração:" />
+			<p:spinner value="#{cursoTabViewBean.curso.duracao}"
+				min="1" max="10" stepFactor="0.5" size="1" style="z-index:0;"/>
+			<h:outputLabel value="Tipo:" />
+			<p:selectOneMenu value="#{cursoTabViewBean.curso.tipo}" 
+				requiredMessage="Selecione o tipo">
+				<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+				<f:selectItems value="#{cursoTabViewBean.tipos}" var="tipo"
+					itemLabel="#{tipo.label}" itemValue="#{tipo}"/>
+			</p:selectOneMenu>
+			<h:outputLabel value="Data de Criação:"/>
+			<p:calendar value="#{cursoTabViewBean.curso.dataCriacao}"
+				pattern="dd/MM/yyyy" maxdate="#{cursoTabViewBean.dataAtual}"/>
+		</p:panelGrid>
+		<br/>
+		<p:commandButton icon="fa fa-check" value="Salvar" action="#{cursoTabViewBean.salvar}"
+		 update="@form" id="btn-salvar"/>
+		<p:commandButton icon="fa fa-arrow-left" value="Voltar" action="#{cursoTabViewBean.voltar}" 
+			update="@form" immediate="true"/>
+		<br/><br/>	
+		<hr/>
+		<br/>
 		<p:dataTable value="#{cursoTabViewBean.cursos}" var="curso" filteredValue="#{cursoTabViewBean.cursosFiltrados}"
 			paginator="true" rows="10" rowsPerPageTemplate="5, 10, 15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
@@ -45,7 +69,7 @@
 			
 			<p:column style="text-align:center;" exportable="false">
 				<p:commandButton icon="fa fa-edit" action="#{cursoTabViewBean.editar(curso)}"
-					style="color:blue;" update=":curso_form"/>
+					style="color:blue;" update=":curso_form" process="@this"/>
 					
 				<p:commandButton icon="fa fa-trash" 
 					actionListener="#{cursoTabViewBean.prepararExclusao(curso)}"
@@ -75,4 +99,5 @@
 			<p:commandButton value="Não" oncomplete="PF('confirmarExclusaoDialog').hide();"/>
 		</p:confirmDialog>
 	</p:panel>
+
 </html>

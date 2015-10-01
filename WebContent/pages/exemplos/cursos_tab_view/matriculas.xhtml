@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel header="Lista da Matrículas">
+		<p:dataTable value="#{cursoTabViewBean.matriculas}" var="matricula" style="margin-top:10px; width:60%"
+			emptyMessage="Nenhuma matrícula cadastrada" >
+			<p:column headerText="Número" width="100">
+				<h:outputText value="#{matricula.numero}"/>
+			</p:column>
+			<p:column headerText="Aluno">
+				<h:outputText value="#{matricula.aluno.nome}"/>
+			</p:column>
+			<p:column headerText="Data" width="80">
+				<h:outputText value="#{matricula.dataMatricula}">
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+				</h:outputText>
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+
+</html>
+
+
+
+
+
+
+

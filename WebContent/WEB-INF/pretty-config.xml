@@ -46,6 +46,12 @@
    	<action onPostback="false">#{usuarioProfessorBean.iniciarBean}</action>
    </url-mapping>
    
+   <url-mapping id="cursotabview">
+   	<pattern value="/curso/tabview/" />
+   	<view-id value="/pages/exemplos/cursos_tab_view/curso_tab_view_wrapper.jsf"/>
+   	<action onPostback="false">#{cursoTabViewBean.iniciarBean}</action>
+   </url-mapping>
+   
 </pretty-config>
 
 

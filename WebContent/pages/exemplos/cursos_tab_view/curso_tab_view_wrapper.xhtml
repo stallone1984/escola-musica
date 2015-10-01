@@ -1,0 +1,25 @@
+<ui:composition
+	template="/pages/layout/template.xhtml"
+ 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Cursos Tab View</ui:define>
+	
+	<ui:define name="principal">
+		<h:form id="curso_form">
+			<p:tabView>
+				<p:ajax event="tabChange" listener="#{cursoTabViewBean.onTabChange}" update="@form" process="@this"/>
+			
+				<p:tab title="Cadastro">
+					<ui:include src="/pages/exemplos/cursos_tab_view/cursos.xhtml" />
+				</p:tab>
+				<p:tab title="Matriculas">
+					<ui:include src="/pages/exemplos/cursos_tab_view/matriculas.xhtml" />
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

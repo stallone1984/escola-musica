@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import escola.musica.modelo.Aluno;
 import escola.musica.modelo.Matricula;
 import escola.musica.modelo.MatriculaVO;
 import escola.musica.servico.MatriculaServico;
@@ -39,6 +40,12 @@ public class MatriculaServicoImpl implements MatriculaServico{
 	@Override
 	public Matricula obterPorId(Integer id) {
 		return entityManager.find(Matricula.class, id);
+	}
+
+	@Override
+	public List<Matricula> listarPorCurso(Integer id) {
+		return entityManager.createNamedQuery(Matricula.LISTAR_POR_CURSO, Matricula.class)
+				.setParameter("idCurso", id).getResultList();
 	}
 
 }
