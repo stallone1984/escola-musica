@@ -37,7 +37,7 @@
    <url-mapping id="turmadragdrop">
    	<pattern value="/turma/dragdrop/" />
    	<view-id value="/pages/turmas/turma_drag_drop.jsf"/>
-   	<action onPostback="false">#{turmaBean.iniciarBean}</action>
+   	<action onPostback="false">#{turmaDragDropBean.iniciarBean}</action>
    </url-mapping>
    
    <url-mapping id="usuarioprofessor">

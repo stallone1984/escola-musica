@@ -21,11 +21,11 @@
 		<h:form id="turma_drag_drop_form">
 			<p:growl />
 			<p:fieldset legend="Alunos Matriculados" style="margin-top:10px;">
-				<p:dataGrid id="alunos-matriculados" value="#{turmaBean.matriculas}" var="matricula"
+				<p:dataGrid id="alunos-matriculados" value="#{turmaDragDropBean.matriculas}" var="matricula"
 					columns="3">
 					<p:panel id="painel-matriculas" header="#{matricula.aluno.nome}">
 						<h:panelGrid columns="2" cellpadding="8">
-							<p:graphicImage value="#{turmaBean.imagemAluno}" width="60"
+							<p:graphicImage value="#{turmaDragDropBean.imagemAluno}" width="60"
 								height="60" cache="false" rendered="#{matricula.aluno.foto != null}">
 								<f:param name="id_aluno" value="#{matricula.aluno.id}" />
 							</p:graphicImage>
@@ -45,13 +45,13 @@
 			<p:fieldset id="turma" legend="Turma de Teoria - 1º Ano" style="margin-top:10px;">
 				<p:outputPanel id="drop-area">
 					<h:outputText value="Arraste a matrícula e solte aqui" style="font-size:20px;"
-						rendered="#{empty turmaBean.matriculasInseridas}"/>
-					<p:commandButton value="Remover Matrículas Selecionadas" action="#{turmaBean.removerMatriculas}"
-						update="turma_drag_drop_form" rendered="#{not empty turmaBean.matriculasInseridas}"/>
+						rendered="#{empty turmaDragDropBean.matriculasInseridas}"/>
+					<p:commandButton value="Remover Matrículas Selecionadas" action="#{turmaDragDropBean.removerMatriculas}"
+						update="turma_drag_drop_form" rendered="#{not empty turmaDragDropBean.matriculasInseridas}"/>
 					<br/><br/>
-					<p:dataTable value="#{turmaBean.matriculasInseridas}" var="matricula"
-						rendered="#{not empty turmaBean.matriculasInseridas}"
-						rowKey="#{matricula.id}" selection="#{turmaBean.matriculasSelecionadas}">
+					<p:dataTable value="#{turmaDragDropBean.matriculasInseridas}" var="matricula"
+						rendered="#{not empty turmaDragDropBean.matriculasInseridas}"
+						rowKey="#{matricula.id}" selection="#{turmaDragDropBean.matriculasSelecionadas}">
 						<p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 						<p:column headerText="Número">
 							<h:outputText value="#{matricula.numero}"/>
@@ -68,7 +68,7 @@
 			
 			<p:droppable for="turma" datasource="alunos-matriculados" onDrop="handleDrop" tolerance="touch"
 				activeStyleClass="ui-state-highlight">
-				<p:ajax listener="#{turmaBean.onMatriculaDrop}" update="drop-area alunos-matriculados"></p:ajax>
+				<p:ajax listener="#{turmaDragDropBean.onMatriculaDrop}" update="drop-area alunos-matriculados"></p:ajax>
 			</p:droppable>
 		</h:form>
 	</ui:define>
