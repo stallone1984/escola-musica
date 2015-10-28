@@ -16,8 +16,7 @@ public class CidadeConverter implements Converter{
 		if(valor.equals("") || !valor.contains("#")){
 			return null;
 		}
-		
-		Cidade cidade = new Cidade();
+				Cidade cidade = new Cidade();
 		
 		String[] propriedades = valor.split("#");
 		if(!propriedades[0].isEmpty()){

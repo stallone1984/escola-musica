@@ -7,7 +7,27 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<p:panel header="Lista da Turmas" rendered="#{turmaBean.turma == null}">
-		
+		<p:commandButton value="Nova Turma" icon="adicionar-icon" 
+			action="#{turmaBean.novaTurma}" update="@form"/>
+			
+		<p:dataTable value="#{turmaBean.turmas}" var="turma">
+			<p:column headerText="Nome">
+				<h:outputText value="#{turma.nome}"/>
+			</p:column>
+			<p:column headerText="Sigla">
+				<h:outputText value="#{turma.sigla}"/>
+			</p:column>
+			<p:column headerText="Curso">
+				<h:outputText value="#{turma.curso.nome}"/>
+			</p:column>
+			<p:column headerText="Semestre">
+				<h:outputText value="#{turma.semestre.label}"/>
+			</p:column>
+			<p:column>
+				<p:commandButton icon="editar-icon" action="#{turmaBean.editarTurma(turma)}"
+					update="@form"/>
+			</p:column>
+		</p:dataTable>
 	</p:panel>
 
 </html>

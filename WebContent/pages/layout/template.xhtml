@@ -22,7 +22,10 @@
 			<p:menuitem value="Alunos" url="/aluno/manutencao/" icon="fa fa-user"/>
 			<p:menuitem value="Matrículas" url="/matricula/manutencao/" icon="fa fa-list"/>
 			<p:menuitem value="Cidades" url="/cidade/manutencao/" icon="fa fa-building"/>
-			<p:menuitem value="Turma Drag Drop" url="/turma/dragdrop/" icon="fa fa-users"/>
+			<p:submenu label="Turmas">
+				<p:menuitem value="Turmas" url="/turma/manutencao/"/>
+				<p:menuitem value="Turma Drag Drop" url="/turma/dragdrop/" icon="fa fa-users"/>
+			</p:submenu>
 			<p:submenu label="Usuários">
 				<p:menuitem value="Professor" url="/usuarioprofessor/manutencao/" icon="fa fa-graduation-cap"/>
 			</p:submenu>

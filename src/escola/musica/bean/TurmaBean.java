@@ -1,13 +1,19 @@
 package escola.musica.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.faces.bean.ManagedBean;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import escola.musica.modelo.Curso;
+import escola.musica.modelo.DiaSemana;
+import escola.musica.modelo.Horario;
 import escola.musica.modelo.Matricula;
 import escola.musica.modelo.Semestre;
 import escola.musica.modelo.Turma;
@@ -17,6 +23,9 @@ import escola.musica.servico.TurmaServico;
 import escola.musica.util.Mensagem;
 
 @Controller("turmaBean")
+@Scope("view")
+// TODO - Remover depois. Apenas para o auto complete
+@ManagedBean
 public class TurmaBean implements Serializable {
 
 	private static final long serialVersionUID = 374615860770008608L;
@@ -26,42 +35,72 @@ public class TurmaBean implements Serializable {
 	private List<Semestre> semestres;
 	private List<Curso> cursos;
 	private List<Matricula> matriculas;
-	
+	private Horario horario = new Horario();
+
 	@Autowired
 	private TurmaServico turmaServico;
 	@Autowired
 	private CursoServico cursoServico;
 	@Autowired
 	private MatriculaServico matriculaServico;
-	
-	public void iniciarBean(){
+
+	public void iniciarBean() {
 		semestres = Arrays.asList(Semestre.values());
 		atualizarTurmas();
 		matriculas = matriculaServico.listarTodasAtivas();
 		cursos = cursoServico.listarTodos();
 	}
-	
-	public void novaTurma(){
+
+	public void novaTurma() {
 		turma = new Turma();
 	}
-	
-	public void salvarTurma(){
+
+	public void salvarTurma() {
 		turmaServico.salvar(turma);
 		turma = null;
 		atualizarTurmas();
 		Mensagem.mensagemInformacao("Turma salva com sucesso!");
 	}
-	
-	public void editarTurma(Turma turma){
+
+	public void editarTurma(Turma turma) {
 		this.turma = turma;
+		this.turma.setMatriculas(new ArrayList<Matricula>(this.turma
+				.getMatriculas()));
 	}
-	
-	public void cancelarTurma(){
+
+	public void cancelarTurma() {
 		this.turma = null;
 	}
-	
-	private void atualizarTurmas(){
+
+	private void atualizarTurmas() {
 		turmas = turmaServico.listarTodas();
+	}
+
+	public String getLabelMatriculas() {
+		StringBuilder label = new StringBuilder("");
+		if (turma.getMatriculas().isEmpty()) {
+			return label.toString();
+		}
+
+		for (Matricula matricula : turma.getMatriculas()) {
+			label.append(matricula.getAluno().getNome() + " - "
+					+ matricula.getCurso().getNome() + "<br/>");
+		}
+
+		return label.toString();
+	}
+	
+	// Horários
+	public void novoHorario(){
+		this.horario = new Horario();
+	}
+	
+	public void limparHorario(){
+		this.horario = new Horario();
+	}
+	
+	public List<DiaSemana> getDiasSemana(){
+		return Arrays.asList(DiaSemana.values());
 	}
 
 	public Turma getTurma() {
@@ -102,6 +141,14 @@ public class TurmaBean implements Serializable {
 
 	public void setMatriculas(List<Matricula> matriculas) {
 		this.matriculas = matriculas;
+	}
+
+	public Horario getHorario() {
+		return horario;
+	}
+
+	public void setHorario(Horario horario) {
+		this.horario = horario;
 	}
 
 }

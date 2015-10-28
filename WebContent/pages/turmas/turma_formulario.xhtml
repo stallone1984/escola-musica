@@ -7,9 +7,74 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:panel header="Cadastro de Turmas" rendered="#{turmaBean.turma != null}">
-	
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel value="Nome:"/>
+			<p:inputText value="#{turmaBean.turma.nome}" size="30"/>
+			<h:outputLabel value="Sigla:"/>
+			<p:inputText value="#{turmaBean.turma.sigla}" size="5"/>
+			<h:outputLabel value="Curso:"/>
+			<p:selectOneMenu value="#{turmaBean.turma.curso}" converter="cursoConverter"
+				filter="true" filterMatchMode="contains">
+				<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
+				<f:selectItems value="#{turmaBean.cursos}" var="curso" 
+					itemLabel="#{curso.nome}" itemValue="#{curso}"/>
+			</p:selectOneMenu>
+			<h:outputLabel value="Semestre:"/>
+			<p:selectOneMenu value="#{turmaBean.turma.semestre}">
+				<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
+				<f:selectItems value="#{turmaBean.semestres}" var="semestre" 
+					itemLabel="#{semestre.label}" itemValue="#{semestre}"/>
+			</p:selectOneMenu>
+			
+			<h:outputLabel value="Ativo:"/>
+			<p:selectBooleanCheckbox value="#{turmaBean.turma.ativo}"/>
+			
+			<h:outputLabel value="Matrículas:"/>
+			<p:selectCheckboxMenu label="Matrículas" value="#{turmaBean.turma.matriculas}" 
+				converter="matriculaConverter" style="width:250px;" panelStyle="width:350px;"
+				filter="true" filterMatchMode="contains">
+				<f:selectItems value="#{turmaBean.matriculas}" var="matricula"
+					itemLabel="#{matricula.aluno.nome} - #{matricula.curso.nome}"/>
+				<p:ajax update="label-matriculas"/>
+			</p:selectCheckboxMenu>
+			<h:outputLabel value="" />
+			<h:outputText id="label-matriculas" value="#{turmaBean.labelMatriculas}" escape="false"/>
+			
+		</h:panelGrid>
+		
+		<p:commandButton value="Salvar" icon="salvar-icon" action="#{turmaBean.salvarTurma}" 
+			update="@form"/>
+		<p:commandButton value="Cancelar" icon="fa fa-remove" action="#{turmaBean.cancelarTurma}"
+			update="@form" immediate="true"/>
+			
+		<p:commandButton value="Adicionar Horário" icon="adicionar-icon" 
+			action="#{turmaBean.novoHorario}" oncomplete="PF('adicionarHorarioDialog').show()"
+			update="@form" />
+			
 		
 	</p:panel>
+	
+	<p:dialog widgetVar="adicionarHorarioDialog" modal="true" header="Cadastro de Horários">
+		<h:panelGrid columns="2" cellpadding="5">
+			<h:outputLabel value="Dia da Semana:"/>
+			<p:selectOneMenu value="#{turmaBean.horario.diaSemana}">
+				<f:selectItem itemLabel="::Selecione::" itemValue="#{null}"/>
+				<f:selectItems value="#{turmaBean.diasSemana}" var="diaSemana"
+					itemLabel="#{diaSemana.label}" itemValue="#{diaSemana}" />
+			</p:selectOneMenu>
+			<h:outputLabel value="Horário Início:"/>
+			<p:calendar value="#{turmaBean.horario.horaInicio}" timeOnly="true"
+				pattern="HH:mm" stepMinute="5" minHour="8" maxHour="22" size="5"
+				mask="99:99" showOn="button" label="Selecione o Horário"/>
+			<h:outputLabel value="Horário Fim"/>
+			<p:calendar value="#{turmaBean.horario.horaFim}" timeOnly="true"
+				pattern="HH:mm" stepMinute="5" minHour="8" maxHour="22" size="5"
+				mask="99:99" showOn="button" label="Selecione o Horário"/>
+		</h:panelGrid>
+		
+		<p:commandButton value="Cancelar" icon="cancelar-icon" action="#{turmaBean.limparHorario}"
+			oncomplete="PF('adicionarHorarioDialog').hide" update="@form" immediate="true"/>
+	</p:dialog>
 	
 
 </html>

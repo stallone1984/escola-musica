@@ -52,6 +52,12 @@
    	<action onPostback="false">#{cursoTabViewBean.iniciarBean}</action>
    </url-mapping>
    
+   <url-mapping id="turmabean">
+   	<pattern value="/turma/manutencao/" />
+   	<view-id value="/pages/turmas/turma_wrapper.jsf"/>
+   	<action onPostback="false">#{turmaBean.iniciarBean}</action>
+   </url-mapping>
+   
 </pretty-config>
 
 
