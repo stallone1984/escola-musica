@@ -50,8 +50,29 @@
 		<p:commandButton value="Adicionar Horário" icon="adicionar-icon" 
 			action="#{turmaBean.novoHorario}" oncomplete="PF('adicionarHorarioDialog').show()"
 			update="@form" />
-			
-		
+		<br/><br/>
+		<h:outputText value="Horários da Turma"/>
+		<p:dataTable value="#{turmaBean.turma.horarios}" var="horario">
+			<p:column headerText="Dia da Semana">
+				<h:outputText value="#{horario.diaSemana.label}"/>
+			</p:column>
+			<p:column headerText="Hora Início">
+				<h:outputText value="#{horario.horaInicio}"/>
+			</p:column>
+			<p:column headerText="Hora Término">
+				<h:outputText value="#{horario.horaFim}"/>
+			</p:column>
+			<p:column>
+				<p:commandButton icon="editar-icon" action="#{turmaBean.editarHorario(horario)}"
+					update="@form" oncomplete="PF('adicionarHorarioDialog').show()" />
+			</p:column>
+			<p:column>
+				<p:commandButton icon="excluir-icon" 
+					update="@form" oncomplete="PF('confirmarExclusaoHorarioDialog').show()">
+					<f:setPropertyActionListener target="#{turmaBean.horario}" value="#{horario}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
 	</p:panel>
 	
 	<p:dialog widgetVar="adicionarHorarioDialog" modal="true" header="Cadastro de Horários">
@@ -72,9 +93,21 @@
 				mask="99:99" showOn="button" label="Selecione o Horário"/>
 		</h:panelGrid>
 		
+		<p:commandButton value="Salvar" icon="salvar-icon" action="#{turmaBean.salvarHorario}"
+			oncomplete="PF('adicionarHorarioDialog').hide" update="@form"/>
 		<p:commandButton value="Cancelar" icon="cancelar-icon" action="#{turmaBean.limparHorario}"
 			oncomplete="PF('adicionarHorarioDialog').hide" update="@form" immediate="true"/>
 	</p:dialog>
+	
+	<p:confirmDialog message="Deseja realmente excluir este horário?" header="Exclusão de Horário"
+		widgetVar="confirmarExclusaoHorarioDialog">
+		<p:commandButton value="Sim" action="#{turmaBean.excluirHorario()}" update="@form"
+			oncomplete="PF('confirmarExclusaoHorarioDialog').hide()"/>
+		<p:commandButton value="Não" update="@form"
+			oncomplete="PF('confirmarExclusaoHorarioDialog').hide()">
+			<f:setPropertyActionListener target="#{turmaBean.horario}" value="#{null}" />
+		</p:commandButton>
+	</p:confirmDialog>
 	
 
 </html>

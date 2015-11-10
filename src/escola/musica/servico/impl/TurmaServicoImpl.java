@@ -25,6 +25,7 @@ public class TurmaServicoImpl implements TurmaServico{
 
 	@Override
 	public List<Turma> listarTodas() {
+		// TODO - Mostrar Hibernate.initialize()
 		return entityManager.createQuery("select t from Turma t").getResultList();
 	}
 
