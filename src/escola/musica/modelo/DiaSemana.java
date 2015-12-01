@@ -4,7 +4,7 @@ public enum DiaSemana {
 
 	SEGUNDA("Segunda-Feira"),
 	QUARTA("Quarta-Feira"),
-	SEXTA("Quinta-Feira");
+	SEXTA("Sexta-Feira");
 	
 	private String label;
 

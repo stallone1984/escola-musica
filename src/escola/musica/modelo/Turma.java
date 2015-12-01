@@ -30,7 +30,7 @@ public class Turma implements Serializable {
 	private boolean ativo;
 	private Semestre semestre;
 	private List<Matricula> matriculas = new ArrayList<Matricula>();
-	private List<Horario> horarios;
+	private List<Horario> horarios = new ArrayList<Horario>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
