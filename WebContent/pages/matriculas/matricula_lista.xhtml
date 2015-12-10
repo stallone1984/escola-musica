@@ -9,10 +9,41 @@
 	<p:panel header="Lista da Matrículas" rendered="#{matriculaBean.matricula == null}">
 		<p:commandButton value="Nova Matricula" action="#{matriculaBean.novaMatricula}" update="matricula_form"
 			icon="adicionar-icon"/>
+			
+		<br/><br/>
+		<p:panelGrid columns="2">
+			<h:outputText value="Aluno:"/>
+			<p:selectOneMenu value="#{matriculaBean.parametros.aluno}"
+				filter="true" filterMatchMode="contains" converter="alunoConverter" style="width:250px;">
+				<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+				<f:selectItems value="#{matriculaBean.alunos}" var="aluno"
+					itemLabel="#{aluno.nome}" itemValue="#{aluno}"/>
+			</p:selectOneMenu>
+			<h:outputText value="Cursos:"/>
+			<p:selectCheckboxMenu label="Cursos" value="#{matriculaBean.parametros.cursos}" 
+				converter="cursoConverter" style="width:250px;" panelStyle="width:350px;"
+				filter="true" filterMatchMode="contains">
+				<f:selectItems value="#{matriculaBean.cursos}" var="curso"
+					itemLabel="#{curso.nome}"/>
+			</p:selectCheckboxMenu>
+			<h:outputText value="Data:"/>
+			<h:panelGroup>
+				<h:outputText value="De "/>
+				<p:calendar value="#{matriculaBean.parametros.dataInicial}" size="10"
+					mask="99/99/9999" pattern="dd/MM/yyyy"/>
+				<h:outputText value=" até "/>
+				<p:calendar value="#{matriculaBean.parametros.dataFinal}" size="10"
+					mask="99/99/9999" pattern="dd/MM/yyyy"/>
+			</h:panelGroup>
+		</p:panelGrid>
+		<br/>
+		<p:commandButton value="Pesquisar" icon="fa fa-search" action="#{matriculaBean.pesquisar}"
+			update="tabela-matriculas"/>
 		
 		<p:dataTable value="#{matriculaBean.matriculaVos}" var="matricula" style="margin-top:10px; width:60%"
-			emptyMessage="Nenhuma matrícula cadastrada" >
-			<p:column headerText="Número" width="100">
+			emptyMessage="Nenhuma matrícula cadastrada" id="tabela-matriculas">
+			<p:column headerText="Número" width="100" filterBy="#{matricula.numero}" 
+				filterMatchMode="contains">
 				<h:outputText value="#{matricula.numero}"/>
 			</p:column>
 			<p:column headerText="Aluno">

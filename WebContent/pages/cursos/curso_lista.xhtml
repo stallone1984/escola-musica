@@ -8,11 +8,11 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<p:panel header="Cursos Cadastrados" style="width:80%;"
-		rendered="#{cursoTabViewBean.curso == null}">
-		<p:commandButton icon="fa fa-plus" value="Novo Curso" action="#{cursoTabViewBean.novoCurso}"
+		rendered="#{cursoBean.curso == null}">
+		<p:commandButton icon="fa fa-plus" value="Novo Curso" action="#{cursoBean.novoCurso}"
 			update="curso_form"/>
 		<br/><br/>
-		<p:dataTable value="#{cursoTabViewBean.cursos}" var="curso" filteredValue="#{cursoTabViewBean.cursosFiltrados}"
+		<p:dataTable value="#{cursoBean.cursos}" var="curso" filteredValue="#{cursoBean.cursosFiltrados}"
 			paginator="true" rows="10" rowsPerPageTemplate="5, 10, 15"
 			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} 
 				{PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -44,11 +44,11 @@
 			</p:column>
 			
 			<p:column style="text-align:center;" exportable="false">
-				<p:commandButton icon="fa fa-edit" action="#{cursoTabViewBean.editar(curso)}"
+				<p:commandButton icon="fa fa-edit" action="#{cursoBean.editar(curso)}"
 					style="color:blue;" update=":curso_form"/>
 					
 				<p:commandButton icon="fa fa-trash" 
-					actionListener="#{cursoTabViewBean.prepararExclusao(curso)}"
+					actionListener="#{cursoBean.prepararExclusao(curso)}"
 					oncomplete="PF('confirmarExclusaoDialog').show();"
 					style="color:red; margin-left:20px;" update="@form"/>
 			</p:column>
@@ -68,9 +68,9 @@
            </h:commandLink>
 		
 		<p:confirmDialog 
-			message="Deseja realmente excluir o curso #{cursoTabViewBean.cursoExclusao.nome}?"
+			message="Deseja realmente excluir o curso #{cursoBean.cursoExclusao.nome}?"
 			widgetVar="confirmarExclusaoDialog">
-			<p:commandButton value="Sim" action="#{cursoTabViewBean.excluir()}"
+			<p:commandButton value="Sim" action="#{cursoBean.excluir()}"
 				oncomplete="PF('confirmarExclusaoDialog').hide();" update="@form"/>
 			<p:commandButton value="Não" oncomplete="PF('confirmarExclusaoDialog').hide();"/>
 		</p:confirmDialog>

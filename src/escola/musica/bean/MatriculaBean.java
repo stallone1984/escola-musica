@@ -11,6 +11,7 @@ import escola.musica.modelo.Aluno;
 import escola.musica.modelo.Curso;
 import escola.musica.modelo.Matricula;
 import escola.musica.modelo.MatriculaVO;
+import escola.musica.modelo.ParametrosBuscaMatricula;
 import escola.musica.servico.AlunoServico;
 import escola.musica.servico.CursoServico;
 import escola.musica.servico.MatriculaServico;
@@ -27,6 +28,7 @@ public class MatriculaBean implements Serializable {
 	private List<MatriculaVO> matriculaVos;
 	private List<Aluno> alunos;
 	private List<Curso> cursos;
+	private ParametrosBuscaMatricula parametros = new ParametrosBuscaMatricula();
 
 	@Autowired
 	private MatriculaServico matriculaServico;
@@ -41,8 +43,12 @@ public class MatriculaBean implements Serializable {
 		cursos = cursoServico.listarTodos();
 	}
 	
-	public void salvar(){
-		if(matricula.getNumero().length() < 3){
+	public void pesquisar(){
+		matriculaVos = matriculaServico.pesquisar(parametros);
+	}
+
+	public void salvar() {
+		if (matricula.getNumero().length() < 3) {
 			Mensagem.mensagemErro("O campo matrícula deve ter no mínimo 3 caracteres");
 			return;
 		}
@@ -51,21 +57,21 @@ public class MatriculaBean implements Serializable {
 		matricula = null;
 		Mensagem.mensagemInformacao("Matrícula cadastrada com sucesso!");
 	}
-	
-	public void novaMatricula(){
+
+	public void novaMatricula() {
 		matricula = new Matricula();
 	}
-	
-	public void editar(Integer id){
+
+	public void editar(Integer id) {
 		this.matricula = matriculaServico.obterPorId(id);
 	}
-	
-	public void cancelar(){
+
+	public void cancelar() {
 		matricula = null;
 	}
 
 	private void atualizarMatriculas() {
-		//matriculas = matriculaServico.listarTodas();
+		// matriculas = matriculaServico.listarTodas();
 		matriculaVos = matriculaServico.listarTodas();
 	}
 
@@ -109,5 +115,12 @@ public class MatriculaBean implements Serializable {
 		this.matriculaVos = matriculaVos;
 	}
 
-	
+	public ParametrosBuscaMatricula getParametros() {
+		return parametros;
+	}
+
+	public void setParametros(ParametrosBuscaMatricula parametros) {
+		this.parametros = parametros;
+	}
+
 }
