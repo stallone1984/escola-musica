@@ -34,7 +34,7 @@
 				converter="matriculaConverter" style="width:250px;" panelStyle="width:350px;"
 				filter="true" filterMatchMode="contains">
 				<f:selectItems value="#{turmaBean.matriculas}" var="matricula"
-					itemLabel="#{matricula.aluno.nome} - #{matricula.curso.nome}"/>
+					itemLabel="#{matricula.aluno.nome} - #{matricula.curso.nome}" itemValue="#{matricula}"/>
 				<p:ajax update="label-matriculas"/>
 			</p:selectCheckboxMenu>
 			<h:outputLabel value="" />

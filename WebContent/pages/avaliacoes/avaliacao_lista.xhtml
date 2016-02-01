@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="header">
+		<meta charset="utf-8" />
+	</ui:define>
+
+	<p:panel header="Lista de Avaliações" rendered="#{avaliacaoBean.avaliacao == null}">
+		
+		<p:commandButton value="Nova Avaliacao" icon="fa fa-plus"
+		 action="#{avaliacaoBean.novaAvaliacao()}" update="@form"/>
+		
+		<p:dataTable value="#{avaliacaoBean.avaliacoes}" var="avaliacao">
+			<p:column headerText="Aluno">
+				<h:outputText value="#{avaliacao.matricula.aluno.nome}"/>
+			</p:column>
+			<p:column headerText="Bimestre/Ano">
+				<h:outputText value="#{avaliacao.bimestre.label} / #{avaliacao.ano}"/>
+			</p:column>
+			<p:column headerText="Nota">
+				<h:outputText value="#{avaliacao.nota}"/>
+			</p:column>
+		</p:dataTable>
+	</p:panel>
+
+</html>
+
+
+
+
+
+
+

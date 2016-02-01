@@ -58,6 +58,12 @@
    	<action onPostback="false">#{turmaBean.iniciarBean}</action>
    </url-mapping>
    
+   <url-mapping id="avaliacoes">
+   	<pattern value="/avaliacao/manutencao/" />
+   	<view-id value="/pages/avaliacoes/avaliacao_wrapper.jsf"/>
+   	<action onPostback="false">#{avaliacaoBean.iniciarBean}</action>
+   </url-mapping>
+   
 </pretty-config>
 
 

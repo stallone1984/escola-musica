@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="header">
+		<meta charset="utf-8" />
+	</ui:define>
+	
+	<p:panel header="Cadastro de Avaliações" rendered="#{avaliacaoBean.avaliacao != null}">
+		<p:panelGrid columns="2">
+			<h:outputLabel value="Matrícula: "/>
+			<p:selectOneMenu value="#{avaliacaoBean.avaliacao.matricula}"
+				converter="matriculaConverter">
+				<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+				<f:selectItems value="#{avaliacaoBean.matriculas}" var="matricula" 
+					itemLabel="#{matricula.aluno.nome} - #{matricula.curso.nome}"
+					itemValue="#{matricula}"/>
+			</p:selectOneMenu>
+			<h:outputLabel value="Bimestre:"/>
+			<p:selectOneMenu value="#{avaliacaoBean.avaliacao.bimestre}">
+				<f:selectItem itemLabel=":: Selecione ::" itemValue="#{null}"/>
+				<f:selectItems value="#{avaliacaoBean.bimestres}" var="bimestre" 
+					itemLabel="#{bimestre.label}"
+					itemValue="#{bimestre}"/>
+			</p:selectOneMenu>
+			<h:outputLabel value="Ano:"/>
+			<p:inputMask mask="9999" value="#{avaliacaoBean.avaliacao.ano}" />
+			<h:outputLabel value="Nota:"/>
+			<p:inputText value="#{avaliacaoBean.avaliacao.nota}"/>
+			<h:outputLabel value="Data:"/>
+			<p:calendar pattern="dd/MM/yyyy" value="#{avaliacaoBean.avaliacao.data}" />
+		</p:panelGrid>
+		
+		<p:commandButton value="Salvar" icon="fa fa-check" action="#{avaliacaoBean.salvar}"
+			update="@form"/>
+		<p:commandButton value="Cancelar" icon="fa fa-remove" action="#{avaliacaoBean.cancelar}"
+			update="@form"/>
+	</p:panel>
+	
+
+</html>
