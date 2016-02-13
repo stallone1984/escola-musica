@@ -25,6 +25,14 @@
 			<p:column headerText="Nota">
 				<h:outputText value="#{avaliacao.nota}"/>
 			</p:column>
+			<p:column>
+				<p:commandButton icon="fa fa-edit" action="#{avaliacaoBean.editar(avaliacao)}"
+					update="@form" />
+				<p:commandButton icon="fa fa-download" ajax="false" style="margin-left:8px;"
+					title="Baixar Arquivo">
+					<p:fileDownload value="#{avaliacaoBean.baixarArquivo(avaliacao)}" />
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
 	</p:panel>
 

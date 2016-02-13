@@ -33,6 +33,18 @@
 			<p:inputText value="#{avaliacaoBean.avaliacao.nota}"/>
 			<h:outputLabel value="Data:"/>
 			<p:calendar pattern="dd/MM/yyyy" value="#{avaliacaoBean.avaliacao.data}" />
+			<h:outputLabel value="Correção:"/>
+			<h:panelGroup id="upload-group">
+				<p:fileUpload allowTypes="/(\.|\/)(jpe?g|png|pdf)$/"
+				invalidFileMessage="Formato de arquivo inválido"
+				label="Selecione um arquivo..."
+				auto="true" multiple="false"
+				fileUploadListener="#{avaliacaoBean.fileUploadHandler}"
+				update="arquivo-selecionado"/>
+				<h:outputText value="#{avaliacaoBean.arquivoSelecionado}"
+					id="arquivo-selecionado"/>
+			</h:panelGroup>
+			
 		</p:panelGrid>
 		
 		<p:commandButton value="Salvar" icon="fa fa-check" action="#{avaliacaoBean.salvar}"
