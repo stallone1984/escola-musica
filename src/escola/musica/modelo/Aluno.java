@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -23,9 +25,14 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = Aluno.OBTER_POR_EMAIL, query = Aluno.OBTER_POR_EMAIL)
+})
 public class Aluno implements Serializable {
 
 	private static final long serialVersionUID = 4675028755655124230L;
+
+	public static final String OBTER_POR_EMAIL = "from Aluno where email = :email";
 
 	private Integer id;
 	private String nome;
@@ -157,6 +164,11 @@ public class Aluno implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Aluno obterPorEmail(String email2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

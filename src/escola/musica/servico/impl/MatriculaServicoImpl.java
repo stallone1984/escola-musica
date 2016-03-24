@@ -1,6 +1,5 @@
 package escola.musica.servico.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -88,6 +87,12 @@ public class MatriculaServicoImpl implements MatriculaServico{
 		}
 		
 		return query.getResultList();
+	}
+
+	@Override
+	public Long obterNumeroUltimaMatricula() {
+		return (Long) entityManager.createNamedQuery(
+				Matricula.OBTER_NUMERO_ULTIMA_MATRICULA).getSingleResult();
 	}
 
 }

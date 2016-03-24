@@ -9,8 +9,6 @@
 	<p:panel header="Cadastro de Matriculas" rendered="#{matriculaBean.matricula != null}">
 	
 		<h:panelGrid columns="2">
-			<h:outputLabel value="Número: "/>
-			<p:inputText value="#{matriculaBean.matricula.numero}" size="10"/>
 			<h:outputLabel value="Data: "/>
 			<p:calendar value="#{matriculaBean.matricula.dataMatricula}" pattern="dd/MM/yyyy" mask="99/99/9999"
 				size="10"/>

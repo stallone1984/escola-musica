@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @NamedQueries({
 	@NamedQuery(name = Matricula.LISTAR_TODAS, query = Matricula.LISTAR_TODAS),
 	@NamedQuery(name = Matricula.LISTAR_POR_CURSO, query = Matricula.LISTAR_POR_CURSO),
+	@NamedQuery(name = Matricula.OBTER_NUMERO_ULTIMA_MATRICULA, query = Matricula.OBTER_NUMERO_ULTIMA_MATRICULA),
 	@NamedQuery(name = "Matricula.ListarTodasAtivas", query = "from Matricula where ativo = true")
 })
 public class Matricula implements Serializable {
@@ -36,8 +37,10 @@ public class Matricula implements Serializable {
 	private Date dataDesativacao;
 	
 	public static final String LISTAR_TODAS = "select new escola.musica.modelo.MatriculaVO(" +
-			"id, numero, dataMatricula, aluno.nome, curso.nome) from Matricula";
+			"id, numero, dataMatricula, aluno.nome, curso.nome) from Matricula order by cast(numero as long)";
 	public static final String LISTAR_POR_CURSO = "from Matricula where curso.id = :idCurso";
+	public static final String OBTER_NUMERO_ULTIMA_MATRICULA = 
+			"select max(cast(numero as long)) from Matricula";
 	
 	public Matricula(){}
 	

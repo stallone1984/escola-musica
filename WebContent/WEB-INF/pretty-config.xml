@@ -4,11 +4,11 @@
                xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.3
    http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.3.xsd">
    
-   <url-mapping id="cursoaccordion">
+   <!-- <url-mapping id="cursoaccordion">
    	<pattern value="/curso/accordion/" />
    	<view-id value="/curso_accordion.jsf"/>
    	<action onPostback="false">#{cursoBean.iniciarBean}</action>
-   </url-mapping>
+   </url-mapping> -->
    
    <url-mapping id="cursomanutencao">
    	<pattern value="/curso/manutencao/" />

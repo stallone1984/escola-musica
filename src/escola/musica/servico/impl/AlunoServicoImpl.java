@@ -29,4 +29,17 @@ public class AlunoServicoImpl implements AlunoServico{
 		return entityManager.createQuery("from Aluno").getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Aluno obterPorEmail(String email) {
+		List<Aluno> alunos = entityManager.createNamedQuery(Aluno.OBTER_POR_EMAIL)
+				.setParameter("email", email).getResultList();
+		
+		if(!alunos.isEmpty()){
+			return alunos.get(0);
+		} else {
+			return null;
+		}
+	}
+
 }

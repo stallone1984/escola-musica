@@ -6,7 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:panel header="Cadastro de Alunos" rendered="#{alunoBean.aluno != null}">
+	<p:panel header="Cadastro de Alunos" rendered="#{alunoBean.aluno != null}"
+		style="width:100%">
 		<p:panel header="Dados do Aluno">
 			<p:panelGrid columns="2">
 				<h:outputText value="Imagem:"/>
@@ -26,7 +27,7 @@
 						style="width:100px; height:100px;" rendered="#{alunoBean.aluno.foto != null}"/>
 				</h:panelGroup>
 				<h:outputText value="Nome: "/>
-				<p:inputText value="#{alunoBean.aluno.nome}" size="30"/>
+				<p:inputText value="#{alunoBean.aluno.nome}" size="60"/>
 				<h:outputText value="Data de Nascimento: "/>
 				<p:calendar value="#{alunoBean.aluno.dataNascimento}" size="10"
 					pattern="dd/MM/yyyy" maxdate="#{alunoBean.dataAtual}"

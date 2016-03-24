@@ -8,4 +8,5 @@ public interface AlunoServico {
 
 	public void salvar(Aluno aluno);
 	public List<Aluno> listarTodos();
+	public Aluno obterPorEmail(String email);
 }

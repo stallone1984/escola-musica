@@ -14,4 +14,5 @@ public interface MatriculaServico {
 	public Matricula obterPorId(Integer id);
 	public List<Matricula> listarPorCurso(Integer id);
 	public List<MatriculaVO> pesquisar(ParametrosBuscaMatricula parametros);
+	public Long obterNumeroUltimaMatricula();
 }

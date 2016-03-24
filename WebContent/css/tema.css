@@ -10,3 +10,12 @@
 	top: 10%;
 	left: 40%;
 }
+
+.menu-template{
+	position: absolute;
+}
+
+.principal-template{
+	position: absolute;
+	margin-left: 190px;
+}

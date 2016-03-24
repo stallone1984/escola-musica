@@ -16,6 +16,7 @@ import escola.musica.servico.AlunoServico;
 import escola.musica.servico.CursoServico;
 import escola.musica.servico.MatriculaServico;
 import escola.musica.util.Mensagem;
+import escola.musica.util.StringUtil;
 
 @Controller("matriculaBean")
 @Scope("view")
@@ -48,10 +49,17 @@ public class MatriculaBean implements Serializable {
 	}
 
 	public void salvar() {
-		if (matricula.getNumero().length() < 3) {
-			Mensagem.mensagemErro("O campo matrícula deve ter no mínimo 3 caracteres");
-			return;
+		String numeroMatricula = null;
+		if(matricula.getId() == null){
+			Long numeroUltimaMatricula = matriculaServico.obterNumeroUltimaMatricula();
+			numeroUltimaMatricula++;
+			numeroMatricula = numeroUltimaMatricula.toString();
+		} else {
+			numeroMatricula = matricula.getNumero();
 		}
+		
+		numeroMatricula = StringUtil.preencherZerosAEsquerda(numeroMatricula, 5);
+		matricula.setNumero(numeroMatricula);
 		matriculaServico.salvar(matricula);
 		atualizarMatriculas();
 		matricula = null;
